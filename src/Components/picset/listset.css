@@ -1,0 +1,42 @@
+.picset-container {
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 300px;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 2rem;
+}
+
+.image-wrapper {
+    padding: 10px;
+}
+
+.image-item {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-item:hover {
+    transform: scale(1.15);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.image-scroll-container {
+    max-height: 400px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.image-scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.nav-buttons {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
