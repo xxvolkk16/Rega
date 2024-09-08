@@ -2,12 +2,13 @@ import { useState } from "react";
 import { Button, TextField, Typography, Box } from '@mui/material';
 import './login.css'; // เชื่อมกับ CSS สำหรับการจัดสไตล์เพิ่มเติม
 import logo from '../../picture/regalogo.png';
+import googlelogo from '../../picture/googlelogo.png'
 
 function Login() {
   const [count, setCount] = useState(0);
 
   return (
-    <Box className="loginbackground">
+    <Box className="background-container">
       <Box className="login-container" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
         {/* โลโก้ */}
         <img src={logo} alt="Logo" className="login-logo" />
@@ -62,7 +63,18 @@ function Login() {
           </Typography>
 
           {/* ปุ่ม Sign in with Google */}
-          <Button variant="outlined" color="secondary" fullWidth startIcon={<img src="google-logo.png" alt="Google" style={{ width: '20px' }} />}>
+          <Button
+            variant="outlined"
+            color="secondary"
+            fullWidth
+            startIcon={
+              <img
+                src={googlelogo}
+                alt="Google"
+                style={{ width: '20px' }}
+              />
+            }
+          >
             Sign in with Google
           </Button>
         </Box>

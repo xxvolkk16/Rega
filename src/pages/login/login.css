@@ -1,62 +1,50 @@
-body {
+.background-container {
     font-family: 'Arial', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     background: url('../../picture/pexels-rui-dias-469842-1472887.jpg') no-repeat center center;
-    background-size: cover; /* ทำให้ภาพครอบคลุมทั้งจอ */
-    background-attachment: fixed; /* ทำให้พื้นหลังติดค้างเมื่อเลื่อนหน้าเว็บ */
-    
-}
-
-  .loginbackground {
-    background: url('../../picture/pexels-rui-dias-469842-1472887.jpg') no-repeat center center;
     background-size: cover; 
     background-attachment: fixed;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
+    mask-image: linear-gradient(to right, transparent, black 75%);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 75%);
 }
 
-
-  
-  .login-container {
-    background-color: rgba(0, 0, 0, 0.6);
+.login-container {
+    background-color: rgba(0, 0, 0, 0.9); /* เปลี่ยนสีพื้นหลังของ login-container ให้ชัดเจนขึ้น */
     padding: 40px;
     border-radius: 10px;
     text-align: center;
     width: 350px;
-  }
-  
-  .login-logo {
+}
+
+
+.login-logo {
     width: 150px;
     margin-bottom: 20px;
-  }
-  
-  .login-form {
+}
+
+.login-form {
     display: flex;
     flex-direction: column;
     gap: 15px;
-  }
-  
-  .forgot-password-link, .signup-link {
+}
+
+.forgot-password-link, .signup-link {
     color: white;
     text-decoration: none;
-  }
-  
-  .forgot-password-link:hover, .signup-link:hover {
+}
+
+.forgot-password-link:hover, .signup-link:hover {
     text-decoration: underline;
-  }
-  
-  button.MuiButton-root {
+}
+
+button.MuiButton-root {
     background-color: #fff;
     color: black;
-  }
-  
-  button.MuiButton-root:hover {
+}
+
+button.MuiButton-root:hover {
     background-color: #f0f0f0;
-  }
-  
+}
