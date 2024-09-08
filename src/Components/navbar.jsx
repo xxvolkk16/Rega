@@ -8,6 +8,7 @@ const Navbar = () => {
       <div className="navbar-left">
         <img src={logo} alt="Logo" className="navbar-logo" />
       </div>
+      
       <div className="navbar-right">
       <ul className="navbar-menu">
           <li>หน้าหลัก</li>
