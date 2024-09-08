@@ -1,0 +1,62 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url('../../picture/pexels-rui-dias-469842-1472887.jpg') no-repeat center center;
+    background-size: cover; /* ทำให้ภาพครอบคลุมทั้งจอ */
+    background-attachment: fixed; /* ทำให้พื้นหลังติดค้างเมื่อเลื่อนหน้าเว็บ */
+    
+}
+
+  .loginbackground {
+    background: url('../../picture/pexels-rui-dias-469842-1472887.jpg') no-repeat center center;
+    background-size: cover; 
+    background-attachment: fixed;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+
+  
+  .login-container {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    width: 350px;
+  }
+  
+  .login-logo {
+    width: 150px;
+    margin-bottom: 20px;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .forgot-password-link, .signup-link {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .forgot-password-link:hover, .signup-link:hover {
+    text-decoration: underline;
+  }
+  
+  button.MuiButton-root {
+    background-color: #fff;
+    color: black;
+  }
+  
+  button.MuiButton-root:hover {
+    background-color: #f0f0f0;
+  }
+  
