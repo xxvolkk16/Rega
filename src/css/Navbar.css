@@ -1,4 +1,4 @@
-.navbar{
+.navbar {
   width: 100%;
   padding: 5px 6%;
   display: flex;
@@ -9,26 +9,61 @@
   z-index: 1;
 }
 
-.navbar-left{
+.navbar-left {
   display: flex;
   align-items: center;
   gap: 50px;
 }
 
-.navbar-right{
+.navbar-right {
   display: flex;
   gap: 20px;
   align-items: center;
 }
 
-.navbar-right ul{
+.navbar-right ul {
   display: flex;
   list-style: none;
   gap: 50px;
 }
 
-.navbar-right ul li{
-  cursor:pointer;
-
+.navbar-right ul li {
+  cursor: pointer;
 }
 
+/* Dropdown specific styles */
+.profile-dropdown {
+  position: relative;
+}
+
+.greeting-button {
+  color: white;
+  cursor: pointer;
+}.dropdown-menu {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  width: max-content; /* Ensure the width adapts to content */
+  white-space: nowrap; /* Prevent line breaks */
+}
+
+.dropdown-item {
+  background: none;
+  border: none;
+  padding: 5px 15px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  white-space: nowrap; /* Prevent line breaks in text */
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+}

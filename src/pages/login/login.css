@@ -7,8 +7,7 @@
     background: url('../../picture/pexels-rui-dias-469842-1472887.jpg') no-repeat center center;
     background-size: cover; 
     background-attachment: fixed;
-    mask-image: linear-gradient(to right, transparent, black 75%);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 75%);
+    
 }
 
 .login-container {
@@ -47,4 +46,11 @@ button.MuiButton-root {
 
 button.MuiButton-root:hover {
     background-color: #f0f0f0;
+}
+
+button.MuiButton-root:hover {
+    background-color: #f0f0f0;
+    color: #333; /* เปลี่ยนสีข้อความเมื่อ hover */
+    transform: scale(1.05); /* เพิ่มเอฟเฟกต์ขยายเล็กน้อยเมื่อ hover */
+    transition: all 0.3s ease; /* เพิ่มการเปลี่ยนแปลงที่นุ่มนวลเมื่อ hover */
 }

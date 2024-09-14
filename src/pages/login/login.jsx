@@ -2,10 +2,24 @@ import { useState } from "react";
 import { Button, TextField, Typography, Box } from '@mui/material';
 import './login.css'; // เชื่อมกับ CSS สำหรับการจัดสไตล์เพิ่มเติม
 import logo from '../../picture/regalogo.png';
-import googlelogo from '../../picture/googlelogo.png'
+import googlelogo from '../../picture/googlelogo.png';
+import { auth, provider } from '../../firebase.jsx'; // นำเข้า Firebase config
+import { signInWithPopup } from "firebase/auth";  // นำเข้า signInWithPopup จาก firebase/auth โดยตรง
+import { useNavigate } from 'react-router-dom';  // นำเข้า useNavigate จาก react-router-dom
 
 function Login() {
-  const [count, setCount] = useState(0);
+  const navigate = useNavigate();  // เรียกใช้ useNavigate
+
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, provider)  // เรียกใช้ signInWithPopup
+      .then((result) => {
+        console.log(result.user);  // แสดงข้อมูลผู้ใช้ที่ล็อกอินสำเร็จ
+        navigate('/home');  // เปลี่ยนเส้นทางไปที่หน้า home หลังล็อกอินสำเร็จ
+      })
+      .catch((error) => {
+        console.error(error.message);  // แสดงข้อผิดพลาดถ้ามี
+      });
+  };
 
   return (
     <Box className="background-container">
@@ -74,6 +88,7 @@ function Login() {
                 style={{ width: '20px' }}
               />
             }
+            onClick={signInWithGoogle} // เพิ่มการเรียกฟังก์ชัน signInWithGoogle
           >
             Sign in with Google
           </Button>
