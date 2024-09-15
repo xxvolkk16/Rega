@@ -2,11 +2,13 @@
 // import { initializeApp } from "firebase/app";
 // import { getAuth, GoogleAuthProvider } from "firebase/auth";  // นำเข้า Authentication และ GoogleAuthProvider
 // import { getAnalytics } from "firebase/analytics";
+// import { getDatabase } from "firebase/database";  // นำเข้า Realtime Database
 
 // // Your web app's Firebase configuration
 // const firebaseConfig = {
 //   apiKey: "AIzaSyAIAAz_WbarBDJRC-X7sF-S48cjG8vVpUg",
 //   authDomain: "regaproject-c2cf7.firebaseapp.com",
+//   databaseURL: "https://regaproject-c2cf7-default-rtdb.asia-southeast1.firebasedatabase.app", // ใส่ databaseURL สำหรับ Realtime Database
 //   projectId: "regaproject-c2cf7",
 //   storageBucket: "regaproject-c2cf7.appspot.com",
 //   messagingSenderId: "175514363636",
@@ -22,22 +24,27 @@
 // const auth = getAuth(app);  // ใช้งาน Authentication
 // const provider = new GoogleAuthProvider();  // ใช้ Google Auth Provider สำหรับการล็อกอิน
 
-// // ส่งออก auth และ provider เพื่อใช้ในไฟล์อื่น
-// export { auth, provider };
+// // Initialize Firebase Realtime Database
+// const database = getDatabase(app);  // เพิ่มการใช้งาน Realtime Database
+
+// // ส่งออก auth, provider และ database เพื่อใช้ในไฟล์อื่น
+// export { auth, provider, database };
 
 
 
-// Import the functions you need from the SDKs you need
+
+
+
+// นำเข้าฟังก์ชันที่คุณต้องการจาก SDK ที่คุณใช้งาน 
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";  // นำเข้า Authentication และ GoogleAuthProvider
 import { getAnalytics } from "firebase/analytics";
-import { getDatabase } from "firebase/database";  // นำเข้า Realtime Database
+import { getFirestore } from "firebase/firestore";  // นำเข้า Firestore
 
-// Your web app's Firebase configuration
+// การตั้งค่า Firebase ของเว็บแอปของคุณ
 const firebaseConfig = {
-  apiKey: "AIzaSyAIAAz_WbarBDJRC-X7sF-S48cjG8vVpUg",
+  apiKey: "AIzaSyAIAAz_WbarBDJRC-X7sF-S48cjG8vVpUg", 
   authDomain: "regaproject-c2cf7.firebaseapp.com",
-  databaseURL: "https://regaproject-c2cf7-default-rtdb.asia-southeast1.firebasedatabase.app", // ใส่ databaseURL สำหรับ Realtime Database
   projectId: "regaproject-c2cf7",
   storageBucket: "regaproject-c2cf7.appspot.com",
   messagingSenderId: "175514363636",
@@ -45,16 +52,16 @@ const firebaseConfig = {
   measurementId: "G-885MPYYY13"
 };
 
-// Initialize Firebase
+// เริ่มต้นใช้งาน Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-// Initialize Firebase Authentication and set up Google Auth Provider
+// เริ่มต้นใช้งาน Firebase Authentication และตั้งค่า Google Auth Provider
 const auth = getAuth(app);  // ใช้งาน Authentication
 const provider = new GoogleAuthProvider();  // ใช้ Google Auth Provider สำหรับการล็อกอิน
 
-// Initialize Firebase Realtime Database
-const database = getDatabase(app);  // เพิ่มการใช้งาน Realtime Database
+// เริ่มต้นใช้งาน Firestore
+const firestore = getFirestore(app);  // ใช้ Firestore แทน Realtime Database
 
-// ส่งออก auth, provider และ database เพื่อใช้ในไฟล์อื่น
-export { auth, provider, database };
+// ส่งออก auth, provider และ firestore เพื่อใช้ในไฟล์อื่น ๆ
+export { auth, provider, firestore };
