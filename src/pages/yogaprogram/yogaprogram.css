@@ -1,0 +1,198 @@
+.yoga-program-page {
+  min-height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+              url('../../img/yoga-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+.program-content {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Header Section */
+.program-header {
+  margin-bottom: 3rem;
+}
+
+.program-header h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  line-height: 1.2;
+  margin-bottom: 2rem;
+  color: white;
+}
+
+/* Filter Buttons */
+.filter-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.filter-btn {
+  padding: 0.5rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  background: transparent;
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.filter-btn.active {
+  background: white;
+  color: black;
+}
+
+/* Programs Grid */
+.programs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.program-card {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.program-card:hover {
+  transform: translateY(-5px);
+}
+
+.program-image {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.program-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.program-name {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Add Program Card */
+.add-program {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  aspect-ratio: 1;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.add-program:hover {
+  transform: translateY(-5px);
+}
+
+.add-content {
+  text-align: center;
+  color: white;
+}
+
+.add-text {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.more-options {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.more-options:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.dropdown-menu {
+  position: fixed;
+  bottom: calc(2rem + 50px);
+  right: 2rem;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
+  overflow: hidden;
+  min-width: 160px;
+  z-index: 1000;
+}
+
+.dropdown-item {
+  width: 100%;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.delete-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  background: #FF0000;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.delete-icon:hover {
+  background: #cc0000;
+}

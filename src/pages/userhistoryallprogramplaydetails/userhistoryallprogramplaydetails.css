@@ -1,0 +1,131 @@
+/* Main container */
+.pega-history-page {
+  min-height: 100vh;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.pega-history-content {
+  min-height: calc(100vh - 64px);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.pega-history-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
+  padding: 2rem;
+  min-height: calc(100vh - 64px);
+}
+
+/* Header Section */
+.pega-history-header {
+  margin-bottom: 2rem;
+}
+
+.pega-history-header h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+/* User Info Section */
+.pega-user-info {
+  background-color: rgba(40, 40, 40, 0.7);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.pega-user-info h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.pega-user-info p {
+  margin: 0.5rem 0;
+  color: #ffffff90;
+}
+
+/* Program Card */
+.pega-program-card {
+  background: rgba(40, 40, 40, 0.7);
+  border-radius: 15px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  backdrop-filter: blur(10px);
+  margin-bottom: 2rem;
+}
+
+.pega-program-thumbnail {
+  width: 96px;
+  height: 96px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.pega-program-details h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.pega-program-details p {
+  color: #ffffff90;
+}
+
+/* Chart Container */
+.pega-chart-container {
+  background: rgba(40, 40, 40, 0.7);
+  border-radius: 15px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  height: 400px;
+}
+
+/* Loading State */
+.pega-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: white;
+  background-color: #000000;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .pega-history-overlay {
+    padding: 1rem;
+  }
+  
+  .pega-program-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .pega-program-thumbnail {
+    width: 100%;
+    height: 200px;
+  }
+  
+  .pega-chart-container {
+    padding: 1rem;
+  }
+  
+  .pega-user-info,
+  .pega-program-card,
+  .pega-chart-container {
+    margin-bottom: 1rem;
+  }
+}

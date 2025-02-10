@@ -1,0 +1,201 @@
+.yoga-pose-page {
+  min-height: 100vh;
+  background: #000;
+}
+
+.pose-content-wrapper {
+  min-height: calc(100vh - 60px);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 2rem;
+  color: white;
+  position: relative;
+}
+
+/* Program Header */
+.program-header {
+  max-width: 800px;
+  margin-bottom: 3rem;
+}
+
+.program-header h1 {
+  font-size: 3.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.program-header .duration {
+  color: #4CAF50;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.program-header .description {
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+/* Poses Container and Cards */
+.poses-container {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding: 1rem 0;
+  margin: 2rem 0;
+}
+
+.pose-card {
+  position: relative;
+  flex: 0 0 auto;
+  width: 200px;
+  height: 150px;
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pose-card:hover {
+  transform: translateY(-5px);
+}
+
+.pose-image {
+  width: 100%;
+  height: 100%;
+}
+
+.pose-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Selected Pose Styles */
+.pose-card.selected {
+  width: 800px;
+  background: rgba(0, 0, 0, 0.85);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.pose-card.selected .pose-image {
+  width: 150px;
+  height: 150px;
+  float: left;
+  margin-right: 20px;
+}
+
+.pose-card.selected .pose-info {
+  overflow: hidden;
+  padding: 20px 20px 20px 0;
+}
+
+.pose-info {
+  color: white;
+}
+
+.pose-info h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+
+.pose-info p {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 0.8rem;
+  opacity: 0.9;
+}
+
+.pose-info .time {
+  color: #4CAF50;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Control Buttons */
+.control-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.control-buttons button {
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.edit-btn {
+  background: #2196F3;
+  color: white;
+}
+
+.delete-btn {
+  background: #f44336;
+  color: white;
+}
+
+/* Navigation */
+.navigation {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.nav-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Custom Scrollbar */
+.poses-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.poses-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.poses-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .pose-card.selected {
+    width: 300px;
+  }
+
+  .pose-card.selected .pose-image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .pose-info h3 {
+    font-size: 1.2rem;
+  }
+
+  .pose-info p {
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,129 @@
+
+
+.history-list-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.history-list-title {
+  font-size: 36px;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 30px;
+  color: white;
+}
+
+.history-list-user-info {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 40px;
+}
+
+.history-list-user-info p {
+  margin: 8px 0;
+  font-size: 14px;
+  color: #B0B0B0;
+}
+
+.history-list-user-info strong {
+  color: white;
+  margin-right: 8px;
+}
+
+.history-list-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.history-list-card {
+  display: flex;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.history-list-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.program-image {
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+}
+
+.program-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.program-info {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.program-info h3 {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  margin: 0 0 8px 0;
+}
+
+.timestamp {
+  font-size: 14px;
+  color: #B0B0B0;
+  margin-bottom: 16px;
+}
+
+.detail-button {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.detail-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.no-history {
+  text-align: center;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: #B0B0B0;
+}
+
+@media (max-width: 768px) {
+  .history-list-card {
+    flex-direction: column;
+  }
+
+  .program-image {
+    width: 100%;
+    height: 200px;
+  }
+
+  .program-info {
+    padding: 16px;
+  }
+  
+  .history-list-title {
+    font-size: 28px;
+    text-align: center;
+  }
+}

@@ -1,0 +1,56 @@
+.background-container {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url('../../picture/pexels-rui-dias-469842-1472887.jpg') no-repeat center center;
+    background-size: cover; 
+    background-attachment: fixed;
+    
+}
+
+.login-container {
+    background-color: rgba(0, 0, 0, 0.9); /* เปลี่ยนสีพื้นหลังของ login-container ให้ชัดเจนขึ้น */
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    width: 350px;
+}
+
+
+.login-logo {
+    width: 150px;
+    margin-bottom: 20px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.forgot-password-link, .signup-link {
+    color: white;
+    text-decoration: none;
+}
+
+.forgot-password-link:hover, .signup-link:hover {
+    text-decoration: underline;
+}
+
+button.MuiButton-root {
+    background-color: #fff;
+    color: black;
+}
+
+button.MuiButton-root:hover {
+    background-color: #f0f0f0;
+}
+
+button.MuiButton-root:hover {
+    background-color: #f0f0f0;
+    color: #333; /* เปลี่ยนสีข้อความเมื่อ hover */
+    transform: scale(1.05); /* เพิ่มเอฟเฟกต์ขยายเล็กน้อยเมื่อ hover */
+    transition: all 0.3s ease; /* เพิ่มการเปลี่ยนแปลงที่นุ่มนวลเมื่อ hover */
+}

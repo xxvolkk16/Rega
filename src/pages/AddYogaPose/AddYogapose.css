@@ -1,0 +1,370 @@
+.add-yoga-page {
+  min-height: 100vh;
+  background: black;
+  color: white;
+}
+
+.pose-content-wrapper {
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  padding: 2rem;
+}
+
+.add-yoga-content {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.add-yoga-content h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+/* Pose Actions */
+.pose-actions {
+  margin-bottom: 2rem;
+}
+
+.action-btn {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #00ff9d;
+  background: transparent;
+  color: #00ff9d;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.action-btn:hover, .action-btn.active {
+  background: #00ff9d;
+  color: black;
+}
+
+/* Poses List */
+.poses-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.pose-item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.pose-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pose-item.selected {
+  border-color: #00ff9d;
+}
+
+.pose-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.pose-info h3 {
+  margin: 0;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.pose-info p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #00ff9d;
+}
+
+/* Duration Input Section */
+.duration-input {
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding-bottom: 1rem;
+}
+
+.duration-label {
+  color: #00ff9d;
+  font-size: 1.1rem;
+}
+
+.time-input {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.1rem;
+  width: 60px;
+  padding: 0.25rem;
+  text-align: center;
+}
+
+.duration-unit {
+  color: #00ff9d;
+}
+
+/* Image Upload Section */
+.image-upload-section {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.image-upload-container {
+  flex-shrink: 0;
+  width: 150px;
+  height: 150px;
+}
+
+.image-input {
+  display: none;
+}
+
+.image-upload-label {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.upload-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.plus-icon {
+  font-size: 2rem;
+  color: white;
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Form Fields */
+.form-fields {
+  flex-grow: 1;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1.5rem;
+  border-radius: 10px;
+}
+
+.input-group {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.input-group:last-child {
+  margin-bottom: 0;
+}
+
+.input-group label {
+  width: 100px;
+  margin-right: 1rem;
+  color: white;
+}
+  
+  .input-group input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 0.5rem;
+    width: calc(100% - 120px);
+  }
+  
+  .input-group input:focus {
+    outline: none;
+    border-bottom-color: #00ff9d;
+  }
+  
+  .input-group input:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  .video-input {
+    color: white;
+    width: calc(100% - 120px);
+  }
+  
+  /* Button Group */
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .save-btn, .cancel-btn {
+    padding: 0.75rem 2rem;
+    border-radius: 5px;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+  }
+  
+  .save-btn {
+    background: #000;
+    color: white;
+  }
+  
+  .save-btn:hover {
+    background: #222;
+  }
+  
+  .cancel-btn {
+    background: #dc3545;
+    color: white;
+  }
+  
+  .cancel-btn:hover {
+    background: #c82333;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .add-yoga-content {
+      padding: 1rem;
+    }
+  
+    .poses-list {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+  
+    .image-upload-section {
+      flex-direction: column;
+    }
+  
+    .image-upload-container {
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+  
+    .input-group {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .input-group label {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+  
+    .input-group input,
+    .video-input {
+      width: 100%;
+    }
+  }
+  
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+  }
+
+
+  /* New Pose Items */
+.pose-item.new {
+    position: relative;
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+  }
+  
+  .pose-item.new .empty-preview {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .pose-item.new .empty-preview span {
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .remove-pose-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: rgba(220, 53, 69, 0.8);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+  
+  .remove-pose-btn:hover {
+    background: rgb(220, 53, 69);
+  }
+  
+  .pose-item.new.selected {
+    border-color: #00ff9d;
+    border-style: solid;
+  }
+  
+  /* Form changes for new items */
+  .form-fields {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 2rem;
+    border-radius: 10px;
+    margin-top: 1rem;
+  }
+  
+  .empty-preview span {
+    font-size: 2.5rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: lighter;
+  }

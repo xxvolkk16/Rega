@@ -1,0 +1,25 @@
+.signup-link {
+    color: #fff; /* Ensuring text contrast */
+    text-decoration: none;
+}
+
+.signup-link a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.signup-link:hover a {
+    color: #ccc; /* Make the hover more distinguishable */
+}
+
+button.MuiButton-root {
+    background-color: #fff;
+    color: black;
+}
+
+button.MuiButton-root:hover {
+    background-color: #f0f0f0;
+    color: #333;
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+}
