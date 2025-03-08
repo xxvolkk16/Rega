@@ -53,6 +53,64 @@
   margin: 0.5rem 0;
   color: #ffffff90;
 }
+/* userhistoryallprogramplaydetails.css */
+
+/* Main container */
+.pega-history-page {
+  min-height: 100vh;
+  background-color: #000000;
+  color: #ffffff;
+  font-family: 'Kanit', sans-serif;
+}
+
+.pega-history-content {
+  min-height: calc(100vh - 64px);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.pega-history-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
+  padding: 2rem;
+  min-height: calc(100vh - 64px);
+}
+
+/* Header Section */
+.pega-history-header {
+  margin-bottom: 2rem;
+}
+
+.pega-history-header h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+/* User Info Section */
+.pega-user-info {
+  background-color: rgba(40, 40, 40, 0.7);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.pega-user-info h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.pega-user-info p {
+  margin: 0.5rem 0;
+  color: #ffffff90;
+}
 
 /* Program Card */
 .pega-program-card {
@@ -82,15 +140,125 @@
 
 .pega-program-details p {
   color: #ffffff90;
+  margin: 0.5rem 0;
 }
 
-/* Chart Container */
-.pega-chart-container {
-  background: rgba(40, 40, 40, 0.7);
+/* Pose History Container */
+.pose-history-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Pose Detail Section */
+.pose-detail-section {
+  background-color: rgba(30, 30, 30, 0.7);
   border-radius: 15px;
-  padding: 2rem;
+  overflow: hidden;
+  margin-bottom: 1rem;
   backdrop-filter: blur(10px);
-  height: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.pose-header {
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(10, 10, 10, 0.5);
+}
+
+.pose-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.pose-
+
+.pose-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.pose-count {
+  font-size: 1rem;
+  color: #ffffff90;
+  margin-bottom: 1.5rem;
+}
+
+/* Pose Sessions */
+.pose-sessions {
+  background-color: rgba(20, 20, 20, 0.5);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.pose-session-row {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pose-session-row:last-child {
+  border-bottom: none;
+}
+
+.pose-session-row:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.session-number {
+  width: 40px;
+  font-weight: bold;
+  color: #888888;
+}
+
+.session-score {
+  width: 60px;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+/* Score colors based on value */
+.pose-session-row:nth-child(1) .session-score {
+  color: #4CAF50;
+}
+
+.pose-session-row:nth-child(2) .session-score {
+  color: #8BC34A;
+}
+
+.pose-session-row:nth-child(3) .session-score {
+  color: #CDDC39;
+}
+
+.pose-session-row:nth-child(4) .session-score {
+  color: #FFC107;
+}
+
+.pose-session-row:nth-child(5) .session-score {
+  color: #FF9800;
+}
+
+.pose-session-row:nth-child(n+6) .session-score {
+  color: #F44336;
+}
+
+.session-date {
+  flex-grow: 1;
+  text-align: right;
+  color: #aaaaaa;
+  font-size: 0.9rem;
 }
 
 /* Loading State */
@@ -119,13 +287,20 @@
     height: 200px;
   }
   
-  .pega-chart-container {
-    padding: 1rem;
+  .pose-session-row {
+    flex-direction: column;
+    align-items: flex-start;
   }
   
-  .pega-user-info,
-  .pega-program-card,
-  .pega-chart-container {
-    margin-bottom: 1rem;
+  .session-number, 
+  .session-score {
+    margin-bottom: 0.5rem;
+  }
+  
+  .session-date {
+    width: 100%;
+    text-align: left;
   }
 }
+
+

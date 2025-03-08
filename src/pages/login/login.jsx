@@ -428,30 +428,26 @@ function Login() {
   const initializeFCM = async (userId) => {
     try {
       const messaging = getMessaging();
-      // ขอสิทธิ์การแจ้งเตือนก่อน
       const permission = await Notification.requestPermission();
-      if (permission !== 'granted') {
-        throw new Error('ไม่ได้รับอนุญาตให้ส่งการแจ้งเตือน');
-      }
-  
-      const fcmToken = await getToken(messaging, {
-        vapidKey: 'BClQ7xIZh_GvBCpDNyDsY2cUsP0EiTqjRysgP6COya7UWAOjdXG5Do5mXHjbSGEdUwCBQhGYOYJYGtgXhkJuqHg'
-      });
-  
-      if (fcmToken) {
-        // เก็บ token ใน Firestore
-        const userDocRef = doc(firestore, 'users', userId);
-        await updateDoc(userDocRef, {
-          fcmToken: fcmToken,
-          lastTokenUpdate: new Date().toISOString()
+      
+      if (permission === 'granted') {
+        const token = await getToken(messaging, {
+          vapidKey: 'BAGiUjDx7UbMRNgiQLAuZWwpa_rkqOE16MsmHQt4qK5rgFDtmuYdHQt97uPz2x6RWa1ae91vtq68Fgs3AsB3FIw'
         });
-        console.log('FCM Token stored successfully');
-        return fcmToken;
-      } else {
-        throw new Error('ไม่สามารถรับ FCM Token ได้');
+        
+        if (token) {
+          // บันทึก token ลง Firestore
+          const userDocRef = doc(firestore, 'users', userId);
+          await updateDoc(userDocRef, {
+            fcmToken: token,
+            lastTokenUpdate: new Date()
+          });
+          return token;
+        }
       }
+      throw new Error('ไม่ได้รับอนุญาตให้ส่งการแจ้งเตือน');
     } catch (error) {
-      console.error('Error getting FCM token:', error);
+      console.error('FCM Error:', error);
       throw error;
     }
   };

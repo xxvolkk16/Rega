@@ -40,3 +40,6 @@ src/api/notifications.js
 src/firebase.jsx
 .env
 public/firebase-messaging-sw.js
+
+
+config/service-account.json
