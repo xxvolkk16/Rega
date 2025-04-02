@@ -431,9 +431,9 @@ const YogaProgram = () => {
 
   const filters = [
     { id: 'all', label: 'All' },
-    { id: 'pain', label: 'Pain' },
-    { id: 'stress', label: 'Stress' },
-    { id: 'disease', label: 'Disease' }
+    // { id: 'pain', label: 'Pain' },
+    // { id: 'stress', label: 'Stress' },
+    // { id: 'disease', label: 'Disease' }
   ];
 
   const filteredPrograms = activeFilter === 'all' 

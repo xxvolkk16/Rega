@@ -453,14 +453,20 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../Components/navbar.jsx";
 import { auth, firestore } from "../../firebase";
 import { collection, getDocs, query, where, doc, getDoc } from "firebase/firestore";
-import { Eye, Trash2 } from "lucide-react";
+import { Eye, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import "./home.css";
 
 const Home = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const [usersData, setUsersData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [paginatedUsers, setPaginatedUsers] = useState([]);
+  const usersPerPage = 10;
+  
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -472,7 +478,7 @@ const Home = () => {
 
         if (!currentUser || !loginTimestamp) {
           console.log('No user or session found');
-          navigate('/login');
+          navigate('/');
           return;
         }
 
@@ -482,7 +488,7 @@ const Home = () => {
         if (now - sessionTime > 24 * 60 * 60 * 1000) {
           console.log('Session expired');
           localStorage.removeItem('loginTimestamp');
-          navigate('/login');
+          navigate('/');
           return;
         }
 
@@ -497,12 +503,12 @@ const Home = () => {
           await fetchUsersData();
         } else {
           console.log('Not an admin user');
-          navigate('/login');
+          navigate('/');
           return;
         }
       } catch (error) {
         console.error('Auth check error:', error);
-        navigate('/login');
+        navigate('/');
       } finally {
         setLoading(false);
       }
@@ -516,6 +522,10 @@ const Home = () => {
           ...doc.data()
         }));
         setUsersData(usersList);
+        
+        // Calculate total pages
+        const pages = Math.ceil(usersList.length / usersPerPage);
+        setTotalPages(pages > 0 ? pages : 1);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -523,15 +533,27 @@ const Home = () => {
 
     checkAuth();
 
-    // Cleanup subscription
+    // ปรับปรุง auth listener ให้ตรวจสอบ flag การออกจากระบบด้วยตนเอง
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (!user) {
-        navigate('/login');
+      // ตรวจสอบถ้าไม่มีผู้ใช้ และไม่ได้กำลังออกจากระบบด้วยตนเอง
+      const isManualLogout = localStorage.getItem('manual_logout') === 'true';
+      
+      if (!user && !isManualLogout) {
+        navigate('/');
       }
     });
 
     return () => unsubscribe();
   }, [navigate]);
+
+  // Update paginated data when users data changes or page changes
+  useEffect(() => {
+    if (usersData.length > 0) {
+      const startIndex = (currentPage - 1) * usersPerPage;
+      const endIndex = startIndex + usersPerPage;
+      setPaginatedUsers(usersData.slice(startIndex, endIndex));
+    }
+  }, [usersData, currentPage]);
 
   const handleView = (userId) => {
     navigate('/userinformation', { state: { userId } });
@@ -539,6 +561,18 @@ const Home = () => {
   
   const handleDelete = (userId) => {
     console.log("Delete user:", userId);
+  };
+
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const goToPreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
   };
 
   if (loading) {
@@ -552,7 +586,6 @@ const Home = () => {
   if (!isAdmin) {
     return <div>Unauthorized Access</div>;
   }
-
 
   return (
     <div className="yad-root">
@@ -572,7 +605,7 @@ const Home = () => {
                 </tr>
               </thead>
               <tbody>
-                {usersData.map((user) => (
+                {paginatedUsers.map((user) => (
                   <tr key={user.id} className="yad-tr">
                     <td className="yad-td">{user.username || "N/A"}</td>
                     <td className="yad-td">{user.email || "N/A"}</td>
@@ -604,6 +637,30 @@ const Home = () => {
                 ))}
               </tbody>
             </table>
+            
+            {/* Pagination Controls */}
+            <div className="yad-pagination">
+              <div className="yad-pagination-info">
+                หน้า {currentPage} จาก {totalPages} (แสดง {paginatedUsers.length} จาก {usersData.length} รายการ)
+              </div>
+              <div className="yad-pagination-controls">
+                <button 
+                  className="yad-pagination-btn" 
+                  onClick={goToPreviousPage} 
+                  disabled={currentPage === 1}
+                >
+                  <ChevronLeft size={18} />
+                </button>
+                <span className="yad-pagination-page">{currentPage}</span>
+                <button 
+                  className="yad-pagination-btn" 
+                  onClick={goToNextPage} 
+                  disabled={currentPage === totalPages}
+                >
+                  <ChevronRight size={18} />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

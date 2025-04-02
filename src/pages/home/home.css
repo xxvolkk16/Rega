@@ -1,130 +1,3 @@
-/* 
-
-.background {
-  position: relative;
-  width: 100%;
-  height: 100vh; 
-  overflow: hidden; 
-}
-
-.banner-img{
-  width: 100%;
-  height: 100%; 
-  object-fit: cover;
-  background-position: center;
-  mask-image: linear-gradient(to right, transparent, black 75%);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 75%);
-}
-
-
-.text-content {
-  flex: 3;
-  padding-left: 20px;
-  margin-left: 40px;
-}
-
-.titlepain {
-  position: absolute;
-  left: 10%; 
-  bottom: 15%; 
-  color: white;
-  max-width: 600px; 
-  margin-left: 200px;
-}
-
-.headpain {
-  font-size: 48px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.titlepain p {
-  font-size: 18px;
-  line-height: 1.5; 
-  margin-top: 20px; 
-}
-
-
-.detail-button {
-  background-color: rgb(47, 47, 47); 
-  color: rgb(255, 255, 255); 
-  border: none; 
-  padding: 10px 20px; 
-  font-size: 16px; 
-  border-radius: 5px;
-  cursor: pointer; 
-  margin-top: 20px;
-  text-transform: uppercase; 
-  font-weight: bold; 
-}
-
-.detail-button:hover {
-  background-color: rgb(255, 255, 255); 
-  color: black;
-}
-
-.home-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.content-container {
-  display: flex; 
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 40px; 
-}
-
-
-.text-content {
-  flex: 3;
-  padding-left: 20px;
-  margin-left: 40px; 
-}
-
-.picset-container {
-  flex: 1;
-  max-width: 300px; 
-  margin-right: 20px; 
-}
-
-
-
-
-
-.users-list {
-  margin-top: 30px;
-  padding: 20px;
-}
-
-.users-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-  gap: 20px; 
-}
-
-.user-card {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-
-.user-card:hover {
-  transform: translateY(-5px);
-}
-
-.user-card p {
-  margin: 10px 0;
-  font-size: 16px;
-  color: #333;
-}
-
-.user-card p strong {
-  color: #000;
-} */
 .yad-root {
   min-height: 100vh;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
@@ -251,4 +124,85 @@
   min-height: 200px;
   color: white;
   font-size: 1.125rem;
+}
+
+/* Pagination styles - New addition */
+.yad-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.yad-pagination-info {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.yad-pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.yad-pagination-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #dee2e6;
+  border-radius: 50%;
+  background-color: white;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.yad-pagination-btn:hover:not(:disabled) {
+  background-color: #f8f9fa;
+  border-color: #ced4da;
+}
+
+.yad-pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.yad-pagination-page {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #495057;
+  min-width: 24px;
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .yad-container {
+    padding: 1rem;
+  }
+  
+  .yad-content {
+    padding: 1.25rem;
+  }
+  
+  .yad-th, 
+  .yad-td {
+    padding: 0.75rem;
+  }
+  
+  .yad-pagination {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.75rem;
+  }
+  
+  .yad-pagination-info {
+    font-size: 0.75rem;
+  }
 }
