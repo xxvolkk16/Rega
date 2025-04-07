@@ -1,8 +1,15 @@
-
+/* ส่วนหลักของหน้าประวัติ */
+.history-list-page {
+  background-color: #0a0a0a;
+  min-height: 100vh;
+  color: white;
+  font-family: 'Kanit', sans-serif;
+}
 
 .history-list-content {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
+  padding: 40px 20px;
 }
 
 .history-list-title {
@@ -11,119 +18,187 @@
   text-align: left;
   margin-bottom: 30px;
   color: white;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 15px;
+  position: relative;
 }
 
+.history-list-title:after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, #ff4500, #ff8c00);
+}
+
+/* ส่วนข้อมูลผู้ใช้ */
 .history-list-user-info {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 40px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-left: 4px solid #ff4500;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .history-list-user-info p {
   margin: 8px 0;
   font-size: 14px;
-  color: #B0B0B0;
+  color: #d0d0d0;
 }
 
 .history-list-user-info strong {
   color: white;
   margin-right: 8px;
+  font-weight: 500;
 }
 
+/* กริดแสดงรายการประวัติ */
 .history-list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* การ์ดแสดงโปรแกรม */
+.history-list-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+  height: 320px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-}
-
-.history-list-card {
-  display: flex;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  overflow: hidden;
-  transition: transform 0.2s ease;
-  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .history-list-card:hover {
-  transform: translateY(-4px);
-  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .program-image {
-  width: 120px;
-  height: 120px;
-  flex-shrink: 0;
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  position: relative;
 }
 
 .program-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.history-list-card:hover .program-image img {
+  transform: scale(1.05);
 }
 
 .program-info {
-  flex: 1;
-  padding: 20px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  flex: 1;
 }
 
 .program-info h3 {
-  font-size: 24px;
+  font-size: 18px;
   font-weight: bold;
   color: white;
   margin: 0 0 8px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .timestamp {
-  font-size: 14px;
-  color: #B0B0B0;
-  margin-bottom: 16px;
+  font-size: 13px;
+  color: #b0b0b0;
+  margin-bottom: 10px;
 }
 
 .detail-button {
-  align-self: flex-start;
-  background: rgba(255, 255, 255, 0.1);
+  margin-top: auto;
+  background: linear-gradient(90deg, #ff4500, #ff8c00);
   color: white;
   border: none;
   padding: 8px 16px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
-  transition: background 0.2s ease;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .detail-button:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: linear-gradient(90deg, #ff8c00, #ff4500);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
+/* ข้อความเมื่อไม่มีประวัติ */
 .no-history {
   text-align: center;
   padding: 40px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  color: #B0B0B0;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  color: #d0d0d0;
+  grid-column: 1 / -1;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
+/* โหลดดิ้ง */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 24px;
+  color: white;
+  background-color: #0a0a0a;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
+  .history-list-grid {
+    grid-template-columns: 1fr;
+  }
+  
   .history-list-card {
-    flex-direction: column;
+    height: auto;
   }
-
+  
   .program-image {
-    width: 100%;
-    height: 200px;
-  }
-
-  .program-info {
-    padding: 16px;
+    height: 150px;
   }
   
   .history-list-title {
-    font-size: 28px;
+    font-size: 26px;
     text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .history-list-content {
+    padding: 20px 15px;
+  }
+  
+  .program-image {
+    height: 120px;
+  }
+  
+  .program-info h3 {
+    font-size: 16px;
+  }
+  
+  .history-list-user-info {
+    padding: 15px;
   }
 }

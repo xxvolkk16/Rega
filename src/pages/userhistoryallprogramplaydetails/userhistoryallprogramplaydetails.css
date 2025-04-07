@@ -3,63 +3,6 @@
   min-height: 100vh;
   background-color: #000000;
   color: #ffffff;
-}
-
-.pega-history-content {
-  min-height: calc(100vh - 64px);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: relative;
-}
-
-.pega-history-overlay {
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.85) 0%,
-    rgba(0, 0, 0, 0.9) 100%
-  );
-  padding: 2rem;
-  min-height: calc(100vh - 64px);
-}
-
-/* Header Section */
-.pega-history-header {
-  margin-bottom: 2rem;
-}
-
-.pega-history-header h2 {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 1.5rem;
-}
-
-/* User Info Section */
-.pega-user-info {
-  background-color: rgba(40, 40, 40, 0.7);
-  border-radius: 15px;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-  backdrop-filter: blur(10px);
-}
-
-.pega-user-info h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: #ffffff;
-}
-
-.pega-user-info p {
-  margin: 0.5rem 0;
-  color: #ffffff90;
-}
-/* userhistoryallprogramplaydetails.css */
-
-/* Main container */
-.pega-history-page {
-  min-height: 100vh;
-  background-color: #000000;
-  color: #ffffff;
   font-family: 'Kanit', sans-serif;
 }
 
@@ -90,15 +33,31 @@
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 1.5rem;
+  color: white;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+.pega-history-header h2:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #ff4500, #ff8c00);
 }
 
 /* User Info Section */
 .pega-user-info {
-  background-color: rgba(40, 40, 40, 0.7);
-  border-radius: 15px;
+  background: rgba(20, 20, 20, 0.7);
+  border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 2rem;
   backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  border-left: 4px solid #ff4500;
 }
 
 .pega-user-info h2 {
@@ -108,105 +67,175 @@
 }
 
 .pega-user-info p {
-  margin: 0.5rem 0;
-  color: #ffffff90;
+  margin: 0.75rem 0;
+  color: #cccccc;
 }
 
 /* Program Card */
 .pega-program-card {
-  background: rgba(40, 40, 40, 0.7);
-  border-radius: 15px;
+  background: rgba(25, 25, 25, 0.8);
+  border-radius: 12px;
   padding: 1.5rem;
   display: flex;
   align-items: center;
   gap: 1.5rem;
   backdrop-filter: blur(10px);
   margin-bottom: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  border-left: 4px solid #ff8c00;
+  position: relative;
+  overflow: hidden;
+}
+
+.pega-program-card:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(255,69,0,0.1) 0%, rgba(0,0,0,0) 70%);
+  z-index: 1;
 }
 
 .pega-program-thumbnail {
-  width: 96px;
-  height: 96px;
+  width: 140px;
+  height: 140px;
   border-radius: 8px;
   object-fit: cover;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+
+.pega-program-card:hover .pega-program-thumbnail {
+  transform: scale(1.05);
 }
 
 .pega-program-details h3 {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   color: #ffffff;
 }
 
 .pega-program-details p {
-  color: #ffffff90;
+  color: #cccccc;
   margin: 0.5rem 0;
+  font-size: 1rem;
 }
 
 /* Pose History Container */
 .pose-history-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 /* Pose Detail Section */
 .pose-detail-section {
-  background-color: rgba(30, 30, 30, 0.7);
-  border-radius: 15px;
+  background: rgba(20, 20, 20, 0.8);
+  border-radius: 12px;
   overflow: hidden;
-  margin-bottom: 1rem;
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-top: 3px solid #ff4500;
+}
+
+.pose-detail-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
 .pose-header {
-  height: 200px;
-  overflow: hidden;
+  height: 240px;
   position: relative;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(10, 10, 10, 0.5);
+  background-color: #101010;
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(20,20,20,0.8));
+  padding: 10px;
 }
 
 .pose-image {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
+  transition: transform 0.5s ease;
+  max-width: 100%;
+  max-height: 220px;
 }
 
-.pose-
+.pose-detail-section:hover .pose-image {
+  transform: scale(1.05);
+}
+
+.pose-content {
+  padding: 1.5rem;
+  position: relative;
+}
+
+.pose-content:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(20,20,20,0.9), rgba(15,15,15,0.95));
+  z-index: -1;
+}
 
 .pose-title {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: bold;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
   color: #ffffff;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .pose-count {
   font-size: 1rem;
-  color: #ffffff90;
+  color: #cccccc;
   margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.pose-count:before {
+  content: '•';
+  margin-right: 8px;
+  color: #ff4500;
+  font-size: 1.5rem;
+  line-height: 0;
 }
 
 /* Pose Sessions */
 .pose-sessions {
-  background-color: rgba(20, 20, 20, 0.5);
-  border-radius: 10px;
+  background: rgba(15, 15, 15, 0.8);
+  border-radius: 8px;
   overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .pose-session-row {
   display: flex;
   align-items: center;
-  padding: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease;
+  position: relative;
 }
 
 .pose-session-row:last-child {
@@ -214,51 +243,41 @@
 }
 
 .pose-session-row:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.08);
+  transform: translateX(3px);
+}
+
+.pose-session-row:hover:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: linear-gradient(to bottom, #ff4500, #ff8c00);
 }
 
 .session-number {
   width: 40px;
   font-weight: bold;
-  color: #888888;
+  color: #999999;
+  font-size: 0.9rem;
 }
 
 .session-score {
-  width: 60px;
-  font-size: 1.25rem;
+  width: 70px;
+  font-size: 1.4rem;
   font-weight: bold;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
+  letter-spacing: 0.5px;
 }
 
-/* Score colors based on value */
-.pose-session-row:nth-child(1) .session-score {
-  color: #4CAF50;
-}
-
-.pose-session-row:nth-child(2) .session-score {
-  color: #8BC34A;
-}
-
-.pose-session-row:nth-child(3) .session-score {
-  color: #CDDC39;
-}
-
-.pose-session-row:nth-child(4) .session-score {
-  color: #FFC107;
-}
-
-.pose-session-row:nth-child(5) .session-score {
-  color: #FF9800;
-}
-
-.pose-session-row:nth-child(n+6) .session-score {
-  color: #F44336;
-}
-
+/* Score colors - now applied dynamically in the code */
 .session-date {
   flex-grow: 1;
   text-align: right;
   color: #aaaaaa;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 /* Loading State */
@@ -269,12 +288,24 @@
   min-height: 100vh;
   color: white;
   background-color: #000000;
+  font-size: 1.5rem;
+}
+
+.pega-loading:after {
+  content: '...';
+  animation: loading-dots 1.5s infinite;
+}
+
+@keyframes loading-dots {
+  0%, 20% { content: '.'; }
+  40% { content: '..'; }
+  60%, 100% { content: '...'; }
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .pega-history-overlay {
-    padding: 1rem;
+    padding: 1.5rem 1rem;
   }
   
   .pega-program-card {
@@ -284,23 +315,30 @@
   
   .pega-program-thumbnail {
     width: 100%;
-    height: 200px;
+    height: 180px;
+    margin-bottom: 1rem;
   }
   
-  .pose-session-row {
-    flex-direction: column;
-    align-items: flex-start;
+  .pose-history-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .pega-history-header h2 {
+    font-size: 1.75rem;
+  }
+  
+  .pose-header {
+    height: 180px;
   }
   
   .session-number, 
   .session-score {
-    margin-bottom: 0.5rem;
+    font-size: 1rem;
   }
   
   .session-date {
-    width: 100%;
-    text-align: left;
+    font-size: 0.75rem;
   }
 }
-
-

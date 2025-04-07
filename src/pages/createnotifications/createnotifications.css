@@ -1,25 +1,63 @@
+/* Main container */
 .notification-container {
-  width: 100%;
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+  font-family: 'Kanit', sans-serif;
 }
 
+/* Tabs styling */
+.notification-tabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.notification-tabs button {
+  padding: 12px 24px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-size: 16px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.notification-tabs button:hover {
+  color: #3498db;
+}
+
+.notification-tabs button.tab-active {
+  color: #3498db;
+  border-bottom-color: #3498db;
+}
+
+/* Card styling */
 .notification-card {
-  background: white;
+  background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s;
 }
 
 .card-header {
-  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #eee;
 }
 
 .card-title {
-  font-size: 24px;
-  font-weight: bold;
   margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+/* Form styling */
+form {
+  padding: 20px;
 }
 
 .form-group {
@@ -30,63 +68,200 @@
   display: block;
   margin-bottom: 8px;
   font-weight: 500;
+  color: #333;
 }
 
 .form-input {
   width: 100%;
-  padding: 8px 12px;
+  padding: 12px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  margin-bottom: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s;
 }
 
+.form-input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+textarea.form-input {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Buttons */
 .button-group {
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .button {
-  padding: 8px 16px;
+  padding: 10px 16px;
   border-radius: 4px;
-  border: none;
-  cursor: pointer;
+  font-size: 16px;
   font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
 }
 
 .button-primary {
-  background-color: #0066cc;
+  background-color: #3498db;
   color: white;
 }
 
 .button-primary:hover {
-  background-color: #0052a3;
+  background-color: #2980b9;
+}
+
+.button-primary:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
 }
 
 .button-outline {
-  background-color: white;
-  border: 1px solid #0066cc;
-  color: #0066cc;
+  background-color: transparent;
+  border: 1px solid #3498db;
+  color: #3498db;
 }
 
 .button-outline:hover {
-  background-color: #f0f0f0;
+  background-color: rgba(52, 152, 219, 0.1);
 }
 
 .form-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
-/* เพิ่มเติมจากที่มีอยู่แล้ว */
-.auth-warning {
-  color: #dc3545;
-  margin-bottom: 10px;
+/* Status message */
+.status-message {
+  margin: 15px 20px;
+  padding: 12px 16px;
+  background-color: #f8f9fa;
+  border-left: 4px solid #3498db;
+  color: #333;
+  border-radius: 4px;
 }
 
-.button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+/* Schedule inputs */
+.schedule-inputs {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.schedule-inputs .form-group {
+  flex: 1;
+}
+
+/* Campaign list */
+.campaign-list {
+  padding: 20px;
+}
+
+.campaign-item {
+  border: 1px solid #eee;
+  border-radius: 6px;
+  padding: 16px;
+  margin-bottom: 16px;
+  transition: all 0.3s;
+}
+
+.campaign-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.campaign-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.campaign-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.status-completed {
+  background-color: #27ae60;
+  color: white;
+}
+
+.status-sending {
+  background-color: #3498db;
+  color: white;
+}
+
+.status-scheduled {
+  background-color: #f39c12;
+  color: white;
+}
+
+.campaign-description {
+  margin: 10px 0;
+  color: #666;
+}
+
+.campaign-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.campaign-stat {
+  display: flex;
+  align-items: center;
+}
+
+.stat-label {
+  color: #7f8c8d;
+  margin-right: 5px;
+}
+
+.stat-value {
+  font-weight: 500;
+  color: #333;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #7f8c8d;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .notification-container {
+    padding: 10px;
+  }
+  
+  .schedule-inputs {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .button-group {
+    flex-direction: column;
+  }
+  
+  .campaign-details {
+    flex-direction: column;
+    gap: 10px;
+  }
 }

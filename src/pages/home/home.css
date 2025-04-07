@@ -206,3 +206,79 @@
     font-size: 0.75rem;
   }
 }
+
+/* Dropdown สำหรับเลือก Role */
+.yad-select {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  border: 1px solid #dee2e6;
+  background-color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  max-width: 120px;
+  text-transform: capitalize;
+}
+
+.yad-select:focus {
+  outline: none;
+  border-color: #4dabf7;
+  box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.2);
+}
+
+.yad-select-admin {
+  background-color: #ffd700;
+  color: #000;
+}
+
+.yad-select-user {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+/* แสดงลูกศรชี้ลงในปุ่ม dropdown */
+.yad-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 12px;
+  padding-right: 28px;
+}
+
+/* Alert สำหรับแสดงผลการอัพเดต */
+.yad-alert {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  gap: 0.5rem;
+}
+
+.yad-alert-success {
+  background-color: #d3f9d8;
+  border: 1px solid #8ce99a;
+  color: #2b8a3e;
+}
+
+/* Loading spinner */
+.yad-loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #4dabf7;
+  border-radius: 50%;
+  animation: spinner 0.8s linear infinite;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
