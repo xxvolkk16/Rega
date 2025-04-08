@@ -5,16 +5,25 @@
 // import { firestore } from "../../firebase";
 // import Navbar from "../../Components/navbar.jsx";
 // import "./userhistoryallprogramplay.css";
+// import path from 'path';
 
 // const UserHistoryAllProgramPlay = () => {
 //   const [historyData, setHistoryData] = useState([]);
-//   const [userData, setUserData] = useState(null); // ✅ เพิ่ม state เก็บข้อมูล user
+//   const [userData, setUserData] = useState(null);
 //   const [loading, setLoading] = useState(true);
 //   const location = useLocation();
 //   const navigate = useNavigate();
 //   const userId = location.state?.userId;
 
-//   // ✅ ดึงข้อมูลผู้ใช้จากตาราง users โดยตรง
+//   const getLocalImage = (imageName) => {
+//     try {
+//       return new URL(`../../img/${imageName}`, import.meta.url).href;
+//     } catch (error) {
+//       console.error("Error loading image:", imageName, error);
+//       return '/img/placeholder-image.jpg';
+//     }
+//   };
+
 //   useEffect(() => {
 //     const fetchUserData = async () => {
 //       if (!userId) return;
@@ -36,7 +45,6 @@
 //     fetchUserData();
 //   }, [userId]);
 
-//   // ✅ ดึงข้อมูลประวัติการเล่นจาก YogaProgramHistory
 //   useEffect(() => {
 //     const fetchHistoryData = async () => {
 //       if (!userId) {
@@ -58,18 +66,20 @@
 
 //         const histories = [];
         
-//         for (const doc of querySnapshot.docs) {
-//           const historyData = doc.data();
+//         for (const docSnapshot of querySnapshot.docs) {
+//           const historyData = docSnapshot.data();
           
 //           // ดึงข้อมูลโปรแกรมโดยใช้ Reference
 //           let programData = null;
 //           if (historyData.Program_id) {
 //             try {
-//               const programRef = historyData.Program_id; // ใช้ Reference โดยตรง
+//               const programRef = historyData.Program_id; 
 //               const programSnap = await getDoc(programRef);
               
 //               if (programSnap.exists()) {
 //                 programData = programSnap.data();
+//                 programData.id = programSnap.id;
+//                 programData.Picture = getLocalImage(programData.Picture) || programData.Picture;
 //                 console.log("ข้อมูลโปรแกรม:", programData);
 //               }
 //             } catch (error) {
@@ -78,20 +88,32 @@
 //           }
 
 //           histories.push({
-//             id: doc.id,
+//             id: docSnapshot.id,
 //             ...historyData,
 //             programData
 //           });
 //         }
 
-//         // เรียงลำดับตามวันที่ล่าสุด
-//         histories.sort((a, b) => {
+//         const programMap = {};
+
+//         histories.forEach((history) => {
+//           if (history.programData) {
+//             const programId = history.programData.id;
+//             if (!programMap[programId] || (history.Date && programMap[programId].Date.toDate() < history.Date.toDate())) {
+//               programMap[programId] = history;
+//             }
+//           }
+//         });
+
+//         const uniqueHistories = Object.values(programMap);
+
+//         uniqueHistories.sort((a, b) => {
 //           const dateA = a.Date?.toDate() || new Date(0);
 //           const dateB = b.Date?.toDate() || new Date(0);
 //           return dateB - dateA;
 //         });
 
-//         setHistoryData(histories);
+//         setHistoryData(uniqueHistories);
 
 //       } catch (error) {
 //         console.error("เกิดข้อผิดพลาดในการดึงข้อมูล:", error);
@@ -103,7 +125,6 @@
 //     fetchHistoryData();
 //   }, [userId, navigate]);
 
-//   // ✅ ฟังก์ชันแปลง Timestamp ให้เป็นวันที่อ่านง่าย
 //   const formatDate = (timestamp) => {
 //     if (!timestamp) return 'ไม่ระบุ';
 //     try {
@@ -127,64 +148,66 @@
 //     return <div className="loading">กำลังโหลด...</div>;
 //   }
 
-//   return (
-//     <div className="history-page">
-//       <Navbar />
-//       <div className="history-content">
-//         <h1 className="history-title">ประวัติการเล่น</h1>
-        
-//         {/* ✅ เพิ่มข้อมูลผู้ใช้ที่ดึงมาจากตาราง Users */}
-//         <div className="user-info-section">
-//           <p><strong>USERID:</strong> {userId}</p>
-//           <p><strong>Username:</strong> {userData?.username || 'N/A'}</p>
-//           <p><strong>Created At:</strong> {formatDate(userData?.createdAt)}</p>
-//           <p><strong>Role:</strong> {userData?.Role || 'User'}</p>
-//         </div>
+//  // Update the UserHistoryAllProgramPlay component's JSX
+// return (
+//   <div className="history-list-page">
+//     <Navbar />
+//     <div className="history-list-content">
+//       <h1 className="history-list-title">ประวัติการเล่น</h1>
+      
+//       <div className="history-list-user-info">
+//         <p><strong>USERID:</strong> {userId}</p>
+//         <p><strong>Username:</strong> {userData?.username || 'N/A'}</p>
+//         <p><strong>Created At:</strong> {formatDate(userData?.createdAt)}</p>
+//         <p><strong>Role:</strong> {userData?.Role || 'User'}</p>
+//       </div>
 
-//         <div className="history-list">
-//           {historyData.length > 0 ? (
-//             historyData.map((item) => (
-//               <div key={item.id} className="history-card">
-//                 <div className="program-image">
-//                   <img 
-//                     src={item.programData?.Picture || '/placeholder-image.jpg'} 
-//                     alt={item.programData?.Name || 'รูปโปรแกรม'} 
-//                     onError={(e) => {
-//                       e.target.onerror = null;
-//                       e.target.src = '/placeholder-image.jpg';
-//                     }}
-//                   />
-//                 </div>
-//                 <div className="program-info">
-//                   <h3>{item.programData?.Name || "ไม่ระบุชื่อโปรแกรม"}</h3>
-//                   <p className="timestamp">
-//                     สิ้นสุดเมื่อ: {formatDate(item.Date)}
-//                   </p>
-//                   <p className="score">คะแนนรวม: {item.Ovr_score?.toFixed(2) || 'ไม่ระบุ'}</p>
-//                   <button 
-//                     className="detail-link"
-//                     onClick={() => {
-//                       if (item.Program_id) {
-//                         navigate(`/program/${item.Program_id.id}`, { 
-//                           state: { historyId: item.id } 
-//                         });
-//                       }
-//                     }}
-//                   >
-//                     ดูรายละเอียดเพิ่มเติม
-//                   </button>
-//                 </div>
+//       <div className="history-list-grid">
+//         {historyData.length > 0 ? (
+//           historyData.map((item) => (
+//             <div key={item.id} className="history-list-card">
+//               <div className="program-image">
+//                 <img 
+//                   src={item.programData?.Picture} 
+//                   alt={item.programData?.Name || 'รูปโปรแกรม'} 
+//                   onError={(e) => {
+//                     e.target.onerror = null;
+//                     e.target.src = '/img/placeholder-image.jpg';
+//                   }}
+//                 />
 //               </div>
-//             ))
-//           ) : (
-//             <div className="no-history">
-//               <p>ไม่พบประวัติการเล่น</p>
+//               <div className="program-info">
+//                 <h3>{item.programData?.Name || "ไม่ระบุชื่อโปรแกรม"}</h3>
+//                 <p className="timestamp">
+//                   เล่นล่าสุดเมื่อ: {formatDate(item.Date)}
+//                 </p>
+//                 <button 
+//                   className="detail-button"
+//                   onClick={() => {
+//                     if (item.programData?.id) {
+//                       navigate('/userhistoryallprogramplaydetails', { 
+//                         state: { 
+//                           userId: userId, 
+//                           programId: item.programData.id 
+//                         } 
+//                       });
+//                     }
+//                   }}
+//                 >
+//                   ดูรายละเอียดเพิ่มเติม
+//                 </button>
+//               </div>
 //             </div>
-//           )}
-//         </div>
+//           ))
+//         ) : (
+//           <div className="no-history">
+//             <p>ไม่พบประวัติการเล่น</p>
+//           </div>
+//         )}
 //       </div>
 //     </div>
-//   );
+//   </div>
+// );
 // };
 
 // export default UserHistoryAllProgramPlay;
@@ -194,10 +217,10 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { collection, query, where, getDocs, doc, getDoc } from "firebase/firestore";
-import { firestore } from "../../firebase";
+import { firestore, storage } from "../../firebase";
+import { ref, getDownloadURL } from "firebase/storage";
 import Navbar from "../../Components/navbar.jsx";
 import "./userhistoryallprogramplay.css";
-import path from 'path';
 
 const UserHistoryAllProgramPlay = () => {
   const [historyData, setHistoryData] = useState([]);
@@ -207,11 +230,14 @@ const UserHistoryAllProgramPlay = () => {
   const navigate = useNavigate();
   const userId = location.state?.userId;
 
-  const getLocalImage = (imageName) => {
+  const getImageFromStorage = async (imageName) => {
     try {
-      return new URL(`../../img/${imageName}`, import.meta.url).href;
+      // ดึงรูปภาพจาก Firebase Storage
+      const storageRef = ref(storage, `Yogapose/${imageName}`);
+      const url = await getDownloadURL(storageRef);
+      return url;
     } catch (error) {
-      console.error("Error loading image:", imageName, error);
+      console.error("Error loading image from storage:", imageName, error);
       return '/img/placeholder-image.jpg';
     }
   };
@@ -271,7 +297,8 @@ const UserHistoryAllProgramPlay = () => {
               if (programSnap.exists()) {
                 programData = programSnap.data();
                 programData.id = programSnap.id;
-                programData.Picture = getLocalImage(programData.Picture) || programData.Picture;
+                // ดึงรูปภาพจาก Firebase Storage
+                programData.Picture = await getImageFromStorage(programData.Picture);
                 console.log("ข้อมูลโปรแกรม:", programData);
               }
             } catch (error) {
@@ -340,66 +367,66 @@ const UserHistoryAllProgramPlay = () => {
     return <div className="loading">กำลังโหลด...</div>;
   }
 
- // Update the UserHistoryAllProgramPlay component's JSX
-return (
-  <div className="history-list-page">
-    <Navbar />
-    <div className="history-list-content">
-      <h1 className="history-list-title">ประวัติการเล่น</h1>
-      
-      <div className="history-list-user-info">
-        <p><strong>USERID:</strong> {userId}</p>
-        <p><strong>Username:</strong> {userData?.username || 'N/A'}</p>
-        <p><strong>Created At:</strong> {formatDate(userData?.createdAt)}</p>
-        <p><strong>Role:</strong> {userData?.Role || 'User'}</p>
-      </div>
+  // Update the UserHistoryAllProgramPlay component's JSX
+  return (
+    <div className="history-list-page">
+      <Navbar />
+      <div className="history-list-content">
+        <h1 className="history-list-title">ประวัติการเล่น</h1>
+        
+        <div className="history-list-user-info">
+          <p><strong>USERID:</strong> {userId}</p>
+          <p><strong>Username:</strong> {userData?.username || 'N/A'}</p>
+          <p><strong>Created At:</strong> {formatDate(userData?.createdAt)}</p>
+          <p><strong>Role:</strong> {userData?.Role || 'User'}</p>
+        </div>
 
-      <div className="history-list-grid">
-        {historyData.length > 0 ? (
-          historyData.map((item) => (
-            <div key={item.id} className="history-list-card">
-              <div className="program-image">
-                <img 
-                  src={item.programData?.Picture} 
-                  alt={item.programData?.Name || 'รูปโปรแกรม'} 
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = '/img/placeholder-image.jpg';
-                  }}
-                />
+        <div className="history-list-grid">
+          {historyData.length > 0 ? (
+            historyData.map((item) => (
+              <div key={item.id} className="history-list-card">
+                <div className="program-image">
+                  <img 
+                    src={item.programData?.Picture} 
+                    alt={item.programData?.Name || 'รูปโปรแกรม'} 
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = '/img/placeholder-image.jpg';
+                    }}
+                  />
+                </div>
+                <div className="program-info">
+                  <h3>{item.programData?.Name || "ไม่ระบุชื่อโปรแกรม"}</h3>
+                  <p className="timestamp">
+                    เล่นล่าสุดเมื่อ: {formatDate(item.Date)}
+                  </p>
+                  <button 
+                    className="detail-button"
+                    onClick={() => {
+                      if (item.programData?.id) {
+                        navigate('/userhistoryallprogramplaydetails', { 
+                          state: { 
+                            userId: userId, 
+                            programId: item.programData.id 
+                          } 
+                        });
+                      }
+                    }}
+                  >
+                    ดูรายละเอียดเพิ่มเติม
+                  </button>
+                </div>
               </div>
-              <div className="program-info">
-                <h3>{item.programData?.Name || "ไม่ระบุชื่อโปรแกรม"}</h3>
-                <p className="timestamp">
-                  เล่นล่าสุดเมื่อ: {formatDate(item.Date)}
-                </p>
-                <button 
-                  className="detail-button"
-                  onClick={() => {
-                    if (item.programData?.id) {
-                      navigate('/userhistoryallprogramplaydetails', { 
-                        state: { 
-                          userId: userId, 
-                          programId: item.programData.id 
-                        } 
-                      });
-                    }
-                  }}
-                >
-                  ดูรายละเอียดเพิ่มเติม
-                </button>
-              </div>
+            ))
+          ) : (
+            <div className="no-history">
+              <p>ไม่พบประวัติการเล่น</p>
             </div>
-          ))
-        ) : (
-          <div className="no-history">
-            <p>ไม่พบประวัติการเล่น</p>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
 };
 
 export default UserHistoryAllProgramPlay;

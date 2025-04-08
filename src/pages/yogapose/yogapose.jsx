@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { firestore } from '../../firebase';
+import { firestore, storage } from '../../firebase';
 import { collection, getDocs, query, where, doc, getDoc } from 'firebase/firestore';
+import { ref, getDownloadURL } from 'firebase/storage';
 import Navbar from '../../Components/navbar';
 import './YogaPose.css';
 
@@ -13,11 +14,14 @@ const YogaPose = () => {
   const [currentPoseIndex, setCurrentPoseIndex] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  const getLocalImage = (imageName) => {
+  const getImageFromStorage = async (imageName) => {
     try {
-      return new URL(`../../img/${imageName}`, import.meta.url).href;
+      // ดึงรูปภาพจาก Firebase Storage
+      const storageRef = ref(storage, `Yogapose/${imageName}`);
+      const url = await getDownloadURL(storageRef);
+      return url;
     } catch (error) {
-      console.error("Error loading image:", imageName, error);
+      console.error("Error loading image from storage:", imageName, error);
       return null;
     }
   };
@@ -35,7 +39,8 @@ const YogaPose = () => {
         
         if (programSnap.exists()) {
           const programData = programSnap.data();
-          const programImage = getLocalImage(programData.Picture);
+          // ดึงรูปภาพจาก Storage
+          const programImage = await getImageFromStorage(programData.Picture);
           setProgram({ 
             id: programSnap.id, 
             ...programData,
@@ -51,15 +56,19 @@ const YogaPose = () => {
           where("Program", "==", programRef)
         );
         const posesSnapshot = await getDocs(posesQuery);
-        const posesList = posesSnapshot.docs.map(doc => {
+        
+        // ดึงรูปภาพของแต่ละท่าจาก Storage
+        const posesPromises = posesSnapshot.docs.map(async (doc) => {
           const poseData = doc.data();
+          const posePicture = await getImageFromStorage(poseData.Picture);
           return {
             id: doc.id,
             ...poseData,
-            Picture: getLocalImage(poseData.Picture) || poseData.Picture
+            Picture: posePicture || poseData.Picture
           };
         });
         
+        const posesList = await Promise.all(posesPromises);
         setPoses(posesList);
         setLoading(false);
       } catch (error) {

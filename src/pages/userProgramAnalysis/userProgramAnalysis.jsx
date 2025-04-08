@@ -97,7 +97,14 @@
 //         <div className="analysis-grid">
 //           {analysisData.length > 0 ? (
 //             analysisData.map((item) => (
-//               <div key={item.programData.id} className="program-card">
+//               <div 
+//                 key={item.programData.id} 
+//                 className="program-card"
+//                 onClick={() => navigate('/userPoseAnalysis', { 
+//                   state: { programId: item.programData.id } 
+//                 })}
+//                 style={{ cursor: 'pointer' }}
+//               >
 //                 <img 
 //                   src={item.programData.Picture}
 //                   alt={item.programData.Name}
@@ -124,12 +131,11 @@
 
 // export default UserProgramAnalysis;
 
-
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, query, getDocs, doc, getDoc } from "firebase/firestore";
-import { firestore } from "../../firebase";
+import { firestore, storage } from "../../firebase";
+import { ref, getDownloadURL } from "firebase/storage";
 import Navbar from "../../Components/navbar.jsx";
 import "./userProgramAnalysis.css";
 
@@ -138,11 +144,14 @@ const UserProgramAnalysis = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const getLocalImage = (imageName) => {
+  const getImageFromStorage = async (imageName) => {
     try {
-      return new URL(`../../img/${imageName}`, import.meta.url).href;
+      // ดึงรูปภาพจาก Firebase Storage
+      const storageRef = ref(storage, `Yogapose/${imageName}`);
+      const url = await getDownloadURL(storageRef);
+      return url;
     } catch (error) {
-      console.error("Error loading image:", imageName, error);
+      console.error("Error loading image from storage:", imageName, error);
       return '/img/placeholder-image.jpg';
     }
   };
@@ -167,11 +176,14 @@ const UserProgramAnalysis = () => {
                 const programData = programSnap.data();
 
                 if (!programScores[programId]) {
+                  // ดึงรูปภาพจาก Firebase Storage
+                  const programImage = await getImageFromStorage(programData.Picture);
+                  
                   programScores[programId] = {
                     programData: {
                       ...programData,
                       id: programId,
-                      Picture: getLocalImage(programData.Picture) || programData.Picture
+                      Picture: programImage || programData.Picture
                     },
                     totalScore: 0,
                     count: 0
@@ -258,3 +270,33 @@ const UserProgramAnalysis = () => {
 };
 
 export default UserProgramAnalysis;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
