@@ -1,0 +1,313 @@
+/* สไตล์ใหม่สำหรับหน้า Edit Yoga Program */
+
+/* คอนเทนเนอร์หลักของหน้า */
+.edit-yoga-container {
+  min-height: 100vh;
+  background-color: #121212;
+  color: #e0e0e0;
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-yoga-content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.edit-yoga-content h1 {
+  margin-bottom: 2rem;
+  color: #ffffff;
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.edit-yoga-form {
+  background: #1e1e1e;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.edit-yoga-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.edit-yoga-form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #b3b3b3;
+}
+
+.edit-yoga-form-group input,
+.edit-yoga-form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #333333;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+}
+
+.edit-yoga-form-group input:focus,
+.edit-yoga-form-group textarea:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.3);
+}
+
+/* สไตล์ใหม่สำหรับส่วนแสดงรูปภาพ */
+.program-image-section {
+  margin-bottom: 2rem;
+}
+
+.image-preview-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.program-image-preview {
+  width: 100%;
+  max-width: 400px;
+  height: 240px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  background-color: #2a2a2a;
+  border: 1px solid #333;
+  position: relative;
+}
+
+.program-image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.upload-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: #666;
+  font-size: 2rem;
+}
+
+/* สไตล์สำหรับปุ่มเลือกรูปภาพ */
+.image-buttons-container {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.image-button {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  background-color: #333333;
+  border: 1px solid #444444;
+  border-radius: 4px;
+  color: #e0e0e0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.image-button:hover {
+  background-color: #444444;
+}
+
+.current-image-name {
+  margin-top: 0.5rem;
+  color: #b3b3b3;
+  font-size: 0.9rem;
+  text-align: center;
+  background-color: #2a2a2a;
+  padding: 0.5rem;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* สไตล์สำหรับแกลเลอรี่รูปภาพ */
+.image-gallery-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.image-gallery {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  max-width: 90%;
+  width: 800px;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+}
+
+.gallery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #333333;
+  background-color: #252525;
+}
+
+.gallery-header h3 {
+  margin: 0;
+  color: #ffffff;
+}
+
+.close-gallery {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #b3b3b3;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  overflow-y: auto;
+  max-height: 60vh;
+}
+
+.gallery-item {
+  border: 1px solid #333333;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s;
+  background-color: #252525;
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+}
+
+.gallery-item.selected {
+  border: 2px solid #4a90e2;
+  box-shadow: 0 0 8px rgba(33, 150, 243, 0.5);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+
+.image-name {
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #b3b3b3;
+}
+
+.gallery-actions {
+  padding: 1rem;
+  border-top: 1px solid #333333;
+  display: flex;
+  justify-content: flex-end;
+  background-color: #252525;
+}
+
+.gallery-button {
+  padding: 0.5rem 1rem;
+  background-color: #333333;
+  border: 1px solid #444444;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #e0e0e0;
+}
+
+.gallery-button:hover {
+  background-color: #444444;
+}
+
+/* สไตล์สำหรับปุ่มบันทึกและยกเลิก */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.cancel-button,
+.submit-button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cancel-button {
+  background-color: #333333;
+  color: #e0e0e0;
+}
+
+.cancel-button:hover {
+  background-color: #444444;
+}
+
+.submit-button {
+  background-color: #2196F3;
+  color: white;
+}
+
+.submit-button:hover {
+  background-color: #0b7dda;
+}
+
+/* ปรับปรุงการแสดงผลบนมือถือ */
+@media (max-width: 768px) {
+  .edit-yoga-content {
+    padding: 1rem;
+  }
+  
+  .edit-yoga-form {
+    padding: 1.5rem;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .cancel-button,
+  .submit-button {
+    width: 100%;
+  }
+  
+  .image-buttons-container {
+    flex-direction: column;
+  }
+}

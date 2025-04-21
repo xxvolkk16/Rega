@@ -132,6 +132,7 @@ import UserProgramAnalysis from './pages/userProgramAnalysis/userProgramAnalysis
 import UserPoseAnalysis from './pages/userPoseAnalysis/userPoseAnalysis';
 import CreateNotifications from './pages/createnotifications/createnotifications';
 import ProgramHistoryManagement from './pages/programhistorymanagement/ProgramHistoryManagement';
+import EditYogaProgram from './pages/edityogaprogram/EditYogaProgram'; // New import
 
 function App() {
   return (
@@ -154,10 +155,12 @@ function App() {
             />
             <Route path="/add-yoga-program" element={<AddYogaProgram/>}/>
             <Route path="/add-yoga-pose/:programId" element={<AddYogaPose />} />
+            <Route path="/edit-yoga-program/:programId" element={<EditYogaProgram />} />
             <Route path="/userProgramAnalysis" element={<UserProgramAnalysis />} />
             <Route path="/userPoseAnalysis" element={<UserPoseAnalysis />} />
             <Route path="/create-notifications" element={<CreateNotifications />} />
             <Route path="/program-history-management" element={<ProgramHistoryManagement />} />
+            
           </Routes>
         </Router>
       </GuestProvider>
