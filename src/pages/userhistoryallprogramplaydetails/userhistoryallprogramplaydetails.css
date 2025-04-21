@@ -1,4 +1,4 @@
-/* Main container */
+Main container
 .pega-history-page {
   min-height: 100vh;
   background-color: #000000;
@@ -98,7 +98,7 @@
   z-index: 1;
 }
 
-.pega-program-thumbnail {
+.pega-program-thumbnail2 {
   width: 140px;
   height: 140px;
   border-radius: 8px;
@@ -110,7 +110,7 @@
   transition: transform 0.3s ease;
 }
 
-.pega-program-card:hover .pega-program-thumbnail {
+.pega-program-card:hover .pega-program-thumbnail2 {
   transform: scale(1.05);
 }
 

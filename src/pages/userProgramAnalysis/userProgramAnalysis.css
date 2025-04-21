@@ -1,91 +1,181 @@
+/* ปรับขนาดรูป Program Thumbnail */
+.pega-program-thumbnail {
+  width: 140px;
+  height: 140px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
 
-  
-  .analysis-content {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 20px;
+/* จัดการรูปภาพท่าโยคะในหน้าประวัติ */
+.pose-header {
+  height: 180px;  /* ลดความสูงจาก 240px เป็น 180px */
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #101010;
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(20,20,20,0.8));
+  padding: 10px;
+}
+
+.pose-image {
+  max-height: 160px;  /* ลดความสูงจาก 220px เป็น 160px */
+  max-width: 90%;
+  width: auto;
+  object-fit: contain;
+  object-position: center;
+  transition: transform 0.5s ease;
+}
+
+/* เพิ่ม class ใหม่สำหรับ container ของรูปภาพท่าโยคะ */
+.pose-img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ปรับ layout ของ pose-detail-section ให้มีขนาดเหมาะสมกว่า */
+.pose-detail-section {
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+/* Media query สำหรับหน้าจอขนาดเล็ก */
+@media (max-width: 768px) {
+  .pose-history-container {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
   
-  .analysis-title {
-    color: white;
-    font-size: 40px;
-    font-weight: bold;
-    margin-bottom: 50px;
-    padding-left: 20px;
+  .pose-header {
+    height: 160px;
   }
   
-  .analysis-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 16px;
-    padding: 0 20px;
+  .pose-image {
+    max-height: 140px;
+  }
+}
+
+/* ให้ container มีการเรียงแบบ flexible มากขึ้น */
+.pose-history-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+
+
+
+/* ปรับ card ให้เหมือนในรูปตัวอย่าง */
+.upa-card {
+  max-width: 260px;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 220px; /* ปรับความสูงให้เหมาะสม */
+  cursor: pointer;
+  margin: 8px;
+}
+
+.upa-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* ปรับ overlay ให้เหมือนในรูปตัวอย่าง */
+.upa-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* จัดตัวเลขให้อยู่ตรงกลาง */
+  align-items: center; /* จัดตัวเลขให้อยู่ตรงกลางแนวนอน */
+  padding: 1rem;
+  color: white;
+}
+
+/* สีสำหรับคะแนนต่างๆ */
+.upa-overlay-green {
+  background: linear-gradient(180deg, rgba(40, 167, 69, 0.7), rgba(40, 167, 69, 0.7));
+}
+
+.upa-overlay-yellow {
+  background: linear-gradient(180deg, rgba(255, 193, 7, 0.7), rgba(255, 193, 7, 0.7));
+}
+
+.upa-overlay-red {
+  background: linear-gradient(180deg, rgba(220, 53, 69, 0.7), rgba(220, 53, 69, 0.7));
+}
+
+/* จัดตำแหน่งชื่อโปรแกรมให้อยู่ด้านบนซ้าย */
+.upa-program-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  margin: 0;
+  align-self: flex-start;
+}
+
+/* จัดคะแนนให้อยู่ตรงกลางและใหญ่ขึ้น */
+.upa-program-score {
+  font-size: 4rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin: 0;
+  line-height: 1;
+}
+
+/* ปรับข้อมูลผู้ใช้ให้อยู่ด้านล่างซ้าย */
+.upa-user-info {
+  font-size: 0.9rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+}
+
+/* ปรับ grid container */
+.upa-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0.5rem; /* ลดระยะห่างระหว่างการ์ด */
+  padding: 0.5rem;
+}
+
+/* สำหรับหน้าจอขนาดเล็ก */
+@media (max-width: 768px) {
+  .upa-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   }
   
-  .program-card {
-    position: relative;
-    width: 100%;
-    height: 500px;
-    border-radius: 20px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
+  .upa-card {
+    max-width: 220px;
+    height: 200px;
   }
   
-  .program-card:hover {
-    transform: translateY(-5px);
+  .upa-program-score {
+    font-size: 3.5rem;
   }
-  
-  .program-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .program-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
-  }
-  
-  .overlay-green {
-    background: linear-gradient(to bottom, rgba(34, 197, 94, 0) 0%, rgba(34, 197, 94, 0.8) 100%);
-  }
-  
-  .overlay-yellow {
-    background: linear-gradient(to bottom, rgba(234, 179, 8, 0) 0%, rgba(234, 179, 8, 0.8) 100%);
-  }
-  
-  .overlay-red {
-    background: linear-gradient(to bottom, rgba(239, 68, 68, 0) 0%, rgba(239, 68, 68, 0.8) 100%);
-  }
-  
-  .program-title {
-    color: white;
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-  }
-  
-  .program-score {
-    color: white;
-    font-size: 72px;
-    font-weight: bold;
-    text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
-  }
-  
-  .loading {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 24px;
-    background-color: #000000;
-  }
+}

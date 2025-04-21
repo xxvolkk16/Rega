@@ -1,7 +1,8 @@
 // import React, { useEffect, useState } from "react";
 // import { useLocation, useNavigate } from "react-router-dom";
 // import { collection, query, where, getDocs, doc, getDoc } from "firebase/firestore";
-// import { firestore } from "../../firebase";
+// import { firestore, storage } from "../../firebase";
+// import { ref, getDownloadURL } from "firebase/storage";
 // import Navbar from "../../Components/navbar.jsx";
 // import "./userhistoryallprogramplaydetails.css";
 
@@ -15,11 +16,14 @@
   
 //   const { userId, programId } = location.state || {};
 
-//   const getLocalImage = (imageName) => {
+//   const getImageFromStorage = async (imageName) => {
 //     try {
-//       return new URL(`../../img/${imageName}`, import.meta.url).href;
+//       // ดึงรูปภาพจาก Firebase Storage
+//       const storageRef = ref(storage, `Yogapose/${imageName}`);
+//       const url = await getDownloadURL(storageRef);
+//       return url;
 //     } catch (error) {
-//       console.error("Error loading image:", imageName, error);
+//       console.error("Error loading image from storage:", imageName, error);
 //       return '/img/placeholder-image.jpg';
 //     }
 //   };
@@ -59,12 +63,14 @@
 //         const programSnap = await getDoc(programDoc);
 //         if (programSnap.exists()) {
 //           const data = programSnap.data();
+//           // ดึงรูปภาพจาก Storage
+//           const programImage = await getImageFromStorage(data.Picture);
 //           setProgramData({
 //             id: programSnap.id,
 //             ...data,
 //             poseCount: data.poseCount || 5, // จำนวนท่าในโปรแกรม (ถ้าไม่มีใช้ค่าเริ่มต้น 5)
 //             totalPlays: 30, // จำนวนครั้งที่เล่นทั้งหมด (สมมติข้อมูล)
-//             Picture: getLocalImage(data.Picture) || data.Picture
+//             Picture: programImage || data.Picture
 //           });
 //         }
 
@@ -98,12 +104,15 @@
 //                 const poseData = poseSnap.data();
 //                 const poseName = poseData.Name || 'ไม่ระบุชื่อท่า';
                 
+//                 // ดึงรูปภาพท่าจาก Storage
+//                 const poseImage = await getImageFromStorage(poseData.Picture);
+                
 //                 // สร้างกลุ่มท่าถ้ายังไม่มี
 //                 if (!poseGroups[poseName]) {
 //                   poseGroups[poseName] = {
 //                     poseName: poseName,
 //                     poseId: poseSnap.id,
-//                     poseImage: getLocalImage(poseData.Picture) || poseData.Picture,
+//                     poseImage: poseImage || poseData.Picture,
 //                     sessionCount: 0,
 //                     sessions: []
 //                   };
@@ -240,22 +249,22 @@
 //                       <div key={session.id} className="pose-session-row">
 //                         <div className="session-number">#{index + 1}</div>
 //                         <div 
-//   className="session-score"
-//   ref={(el) => {
-//     if (el) {
-//       const scoreValue = Math.round(session.score);
-//       if (scoreValue >= 60) {
-//         el.style.color = '#4CAF50'; // Green
-//       } else if (scoreValue >= 40) {
-//         el.style.color = '#FFC107'; // Yellow/Orange
-//       } else {
-//         el.style.color = '#F44336'; // Red
-//       }
-//     }
-//   }}
-// >
-//   {Math.round(session.score)}%
-// </div>
+//                           className="session-score"
+//                           ref={(el) => {
+//                             if (el) {
+//                               const scoreValue = Math.round(session.score);
+//                               if (scoreValue >= 60) {
+//                                 el.style.color = '#4CAF50'; // Green
+//                               } else if (scoreValue >= 40) {
+//                                 el.style.color = '#FFC107'; // Yellow/Orange
+//                               } else {
+//                                 el.style.color = '#F44336'; // Red
+//                               }
+//                             }
+//                           }}
+//                         >
+//                           {Math.round(session.score)}%
+//                         </div>
 //                         <div className="session-date">{formatThaiDate(session.date)}</div>
 //                       </div>
 //                     ))}
@@ -288,18 +297,10 @@
 
 
 
-
-
-
-
-
-
-
-
-
+// pages/userhistoryallprogramplaydetails/userhistoryallprogramplaydetails.jsx
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { collection, query, where, getDocs, doc, getDoc } from "firebase/firestore";
+import { collection, query, where, getDocs, doc, getDoc, collectionGroup } from "firebase/firestore";
 import { firestore, storage } from "../../firebase";
 import { ref, getDownloadURL } from "firebase/storage";
 import Navbar from "../../Components/navbar.jsx";
@@ -310,20 +311,48 @@ const UserHistoryAllProgramPlayDetails = () => {
   const [programData, setProgramData] = useState(null);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [programStats, setProgramStats] = useState({
+    poseCount: 0,
+    totalPlays: 0
+  });
   const location = useLocation();
   const navigate = useNavigate();
   
   const { userId, programId } = location.state || {};
 
-  const getImageFromStorage = async (imageName) => {
+  // ใช้ cache สำหรับเก็บ URL ของรูปภาพ
+  const imageCache = new Map();
+
+  const getImageWithFallback = async (imageName) => {
+    if (!imageName) return '/img/placeholder-image.jpg';
+
+    // ตรวจสอบว่ามีรูปในแคชหรือไม่
+    if (imageCache.has(imageName)) {
+      return imageCache.get(imageName);
+    }
+
     try {
-      // ดึงรูปภาพจาก Firebase Storage
-      const storageRef = ref(storage, `Yogapose/${imageName}`);
-      const url = await getDownloadURL(storageRef);
+      // ลองดึงจาก folder Yogapose ก่อน
+      const url = await getDownloadURL(ref(storage, `Yogapose/${imageName}`));
+      imageCache.set(imageName, url);
       return url;
     } catch (error) {
-      console.error("Error loading image from storage:", imageName, error);
-      return '/img/placeholder-image.jpg';
+      try {
+        // ถ้าไม่พบใน Yogapose ให้ลองดึงจาก folder Program
+        const url = await getDownloadURL(ref(storage, `Program/${imageName}`));
+        imageCache.set(imageName, url);
+        return url;
+      } catch (secondError) {
+        try {
+          // ลองดึงจาก root folder
+          const url = await getDownloadURL(ref(storage, imageName));
+          imageCache.set(imageName, url);
+          return url;
+        } catch (thirdError) {
+          console.error(`Failed to load image ${imageName} from all locations`, thirdError);
+          return '/img/placeholder-image.jpg';
+        }
+      }
     }
   };
 
@@ -357,26 +386,25 @@ const UserHistoryAllProgramPlayDetails = () => {
       }
 
       try {
-        // ดึงข้อมูลโปรแกรม
+        // 1. ดึงข้อมูลโปรแกรม
         const programDoc = doc(firestore, "Yoga Program", programId);
         const programSnap = await getDoc(programDoc);
+        
         if (programSnap.exists()) {
           const data = programSnap.data();
           // ดึงรูปภาพจาก Storage
-          const programImage = await getImageFromStorage(data.Picture);
+          const programImage = await getImageWithFallback(data.Picture);
           setProgramData({
             id: programSnap.id,
             ...data,
-            poseCount: data.poseCount || 5, // จำนวนท่าในโปรแกรม (ถ้าไม่มีใช้ค่าเริ่มต้น 5)
-            totalPlays: 30, // จำนวนครั้งที่เล่นทั้งหมด (สมมติข้อมูล)
             Picture: programImage || data.Picture
           });
         }
 
-        // สร้างอ้างอิงผู้ใช้สำหรับคิวรี่
+        // 2. สร้างอ้างอิงผู้ใช้สำหรับคิวรี่
         const userDoc = doc(firestore, "Users", userId);
 
-        // ดึงข้อมูลประวัติท่าโยคะที่เกี่ยวข้องกับโปรแกรมนี้สำหรับผู้ใช้นี้
+        // 3. ดึงข้อมูลประวัติท่าโยคะทั้งหมดสำหรับโปรแกรมนี้
         const poseHistoryRef = collection(firestore, "YogaPoseHistory");
         const historyQuery = query(
           poseHistoryRef, 
@@ -385,18 +413,37 @@ const UserHistoryAllProgramPlayDetails = () => {
         );
         
         const poseHistorySnapshot = await getDocs(historyQuery);
-
-        // Map เพื่อจัดกลุ่มตามชื่อท่า
+        
+        // 4. นับจำนวนครั้งที่เล่นโปรแกรมนี้ (จำนวน sessions)
+        // สร้าง Set เพื่อเก็บวันที่เล่นที่ไม่ซ้ำกัน (นับเป็น 1 ครั้งต่อวัน)
+        const uniqueSessions = new Set();
+        
+        // Map เพื่อจัดกลุ่มตามท่า
         const poseGroups = {};
-
-        // ประมวลผลข้อมูลประวัติท่า
+        const uniquePoses = new Set(); // เก็บ ID ของท่าที่ไม่ซ้ำกัน
+        
+        // 5. ประมวลผลข้อมูลประวัติท่า
         for (const docSnapshot of poseHistorySnapshot.docs) {
           const historyData = docSnapshot.data();
           
+          // เก็บวันที่เล่นเพื่อนับจำนวนครั้ง (sessions)
+          if (historyData.Date) {
+            // ใช้วันที่ + เวลาเป็นชั่วโมงเพื่อแยกว่าเป็นคนละ session
+            const sessionDate = historyData.Date.toDate();
+            const sessionKey = `${sessionDate.getFullYear()}-${sessionDate.getMonth()}-${sessionDate.getDate()}-${sessionDate.getHours()}`;
+            uniqueSessions.add(sessionKey);
+          }
+          
+          // ประมวลผลข้อมูลแต่ละท่า
           if (historyData.Pose_id) {
             try {
-              // ดึงข้อมูลท่า
               const poseRef = historyData.Pose_id;
+              const poseId = poseRef.id;
+              
+              // เพิ่มท่าที่ไม่ซ้ำกัน
+              uniquePoses.add(poseId);
+              
+              // ดึงข้อมูลท่า
               const poseSnap = await getDoc(poseRef);
               
               if (poseSnap.exists()) {
@@ -404,7 +451,7 @@ const UserHistoryAllProgramPlayDetails = () => {
                 const poseName = poseData.Name || 'ไม่ระบุชื่อท่า';
                 
                 // ดึงรูปภาพท่าจาก Storage
-                const poseImage = await getImageFromStorage(poseData.Picture);
+                const poseImage = await getImageWithFallback(poseData.Picture);
                 
                 // สร้างกลุ่มท่าถ้ายังไม่มี
                 if (!poseGroups[poseName]) {
@@ -431,7 +478,7 @@ const UserHistoryAllProgramPlayDetails = () => {
           }
         }
 
-        // เรียงลำดับเซสชันตามวันที่ (ล่าสุดก่อน)
+        // 6. เรียงลำดับเซสชันตามวันที่ (ล่าสุดก่อน)
         Object.keys(poseGroups).forEach(poseName => {
           poseGroups[poseName].sessions.sort((a, b) => {
             const dateA = a.date?.toDate() || new Date(0);
@@ -440,6 +487,12 @@ const UserHistoryAllProgramPlayDetails = () => {
           });
         });
 
+        // 7. อัปเดตข้อมูลสถิติของโปรแกรม
+        setProgramStats({
+          poseCount: uniquePoses.size, // จำนวนท่าที่ไม่ซ้ำกัน
+          totalPlays: uniqueSessions.size // จำนวนครั้งที่เล่น (sessions)
+        });
+        
         setPoseHistoryGroups(poseGroups);
       } catch (error) {
         console.error("เกิดข้อผิดพลาดในการดึงข้อมูล:", error);
@@ -482,6 +535,11 @@ const UserHistoryAllProgramPlayDetails = () => {
     }
   };
 
+  // ฟังก์ชันจัดการเมื่อโหลดรูปไม่สำเร็จ
+  const handleImageError = (id) => {
+    console.log(`Image load error for: ${id}`);
+  };
+
   if (loading) {
     return <div className="pega-loading">กำลังโหลด...</div>;
   }
@@ -515,12 +573,13 @@ const UserHistoryAllProgramPlayDetails = () => {
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.src = '/img/placeholder-image.jpg';
+                handleImageError('program');
               }}
             />
             <div className="pega-program-details">
               <h3>{programData?.Name || 'โปรแกรมโยคะ'}</h3>
-              <p>จำนวนท่าโยคะที่เล่น: {programData?.poseCount || 5} ท่า</p>
-              <p>จำนวนครั้งที่เล่นทั้งหมด: {programData?.totalPlays || 30} ครั้ง</p>
+              <p>จำนวนท่าโยคะที่เล่น: {programStats.poseCount} ท่า</p>
+              <p>จำนวนครั้งที่เล่นทั้งหมด: {programStats.totalPlays} ครั้ง</p>
             </div>
           </div>
           
@@ -536,6 +595,7 @@ const UserHistoryAllProgramPlayDetails = () => {
                     onError={(e) => {
                       e.target.onerror = null;
                       e.target.src = '/img/placeholder-image.jpg';
+                      handleImageError(poseGroup.poseId);
                     }}
                   />
                 </div>

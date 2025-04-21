@@ -1,4 +1,4 @@
-.yoga-program-page {
+.yp-container {
   min-height: 100vh;
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
               url('../../img/yoga-bg.jpg');
@@ -7,7 +7,7 @@
   color: white;
 }
 
-.program-content {
+.yp-content {
   padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
@@ -15,11 +15,11 @@
 }
 
 /* Header Section */
-.program-header {
+.yp-header {
   margin-bottom: 3rem;
 }
 
-.program-header h1 {
+.yp-header h1 {
   font-size: 2.5rem;
   font-weight: bold;
   line-height: 1.2;
@@ -28,13 +28,13 @@
 }
 
 /* Filter Buttons */
-.filter-buttons {
+.yp-filter-wrapper {
   display: flex;
   gap: 1rem;
   margin-bottom: 2rem;
 }
 
-.filter-btn {
+.yp-filter-btn {
   padding: 0.5rem 1.5rem;
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 20px;
@@ -45,24 +45,24 @@
   transition: all 0.3s ease;
 }
 
-.filter-btn:hover {
+.yp-filter-btn:hover {
   background: rgba(255, 255, 255, 0.1);
 }
 
-.filter-btn.active {
+.yp-filter-btn.active {
   background: white;
   color: black;
 }
 
 /* Programs Grid */
-.programs-grid {
+.yp-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2rem;
 }
 
-.program-card {
+.yp-card {
   position: relative;
   aspect-ratio: 1;
   border-radius: 15px;
@@ -72,23 +72,23 @@
   transition: transform 0.3s ease;
 }
 
-.program-card:hover {
+.yp-card:hover {
   transform: translateY(-5px);
 }
 
-.program-image {
+.yp-image-container {
   width: 100%;
   height: 100%;
   position: relative;
 }
 
-.program-image img {
+.yp-image-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.program-name {
+.yp-title {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -101,7 +101,7 @@
 }
 
 /* Add Program Card */
-.add-program {
+.yp-add-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -113,21 +113,21 @@
   position: relative;
 }
 
-.add-program:hover {
+.yp-add-btn:hover {
   transform: translateY(-5px);
 }
 
-.add-content {
+.yp-add-content {
   text-align: center;
   color: white;
 }
 
-.add-text {
+.yp-add-text {
   font-size: 1rem;
   margin-bottom: 0.5rem;
 }
 
-.more-options {
+.yp-more-options-btn {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
@@ -145,11 +145,11 @@
   z-index: 1000;
 }
 
-.more-options:hover {
+.yp-more-options-btn:hover {
   background: rgba(255, 255, 255, 0.3);
 }
 
-.dropdown-menu {
+.yp-dropdown {
   position: fixed;
   bottom: calc(2rem + 50px);
   right: 2rem;
@@ -161,7 +161,7 @@
   z-index: 1000;
 }
 
-.dropdown-item {
+.yp-dropdown-item {
   width: 100%;
   padding: 12px 16px;
   display: flex;
@@ -174,11 +174,11 @@
   transition: background-color 0.3s ease;
 }
 
-.dropdown-item:hover {
+.yp-dropdown-item:hover {
   background: rgba(255, 255, 255, 0.1);
 }
 
-.delete-icon {
+.yp-delete-icon {
   position: absolute;
   top: 8px;
   right: 8px;
@@ -193,6 +193,6 @@
   cursor: pointer;
 }
 
-.delete-icon:hover {
+.yp-delete-icon:hover {
   background: #cc0000;
 }
