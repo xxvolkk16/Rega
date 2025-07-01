@@ -119,10 +119,10 @@ const EditYogaProgram = () => {
     const { name, value } = e.target;
     
     if (name === 'Time_up') {
-      // Convert to number for Time_up
+      // Convert to float for Time_up to support decimal values
       setFormData({
         ...formData,
-        [name]: parseInt(value, 10) || 0
+        [name]: parseFloat(value) || 0
       });
     } else {
       setFormData({
@@ -264,7 +264,8 @@ const EditYogaProgram = () => {
               name="Time_up"
               value={formData.Time_up}
               onChange={handleInputChange}
-              min="1"
+              min="0.1"
+              step="0.1"
               required
             />
           </div>
