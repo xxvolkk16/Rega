@@ -1,21 +1,17 @@
-my  //Step to eun the project
+🧘‍♀️ Rega Web Controller
+A web-based platform to manage and interact with the Rega app's database, built with modern tools to provide seamless experience and user-friendly interfaces.
 
-//Install เพื่อเปิด web
-1. npm install
+📌 Project Overview
+This project is a React-based web application designed to control and manage data from the Rega system — an app dedicated to fitness and yoga scheduling. With a clean user interface and Firebase integration, this platform allows administrators to view, update, and manage core database functionality with ease.
 
-//Install env
-2. python -m venv ชื่อ
+🔧 Tech Stack
+Frontend: React (JSX)
 
-ชื่อ\Scripts\activate
+Backend & Database: Firebase (Realtime Database / Firestore)
 
+Design & UX/UI: Focused on user-friendly layouts and responsive components
 
-//ติดตั้ง MediaPipe และ OpenCV ตอน activate env
-3. pip install mediapipe opencv-python
+🎨 UI Showcase
+Below are a few screenshots demonstrating the interface and user experience:
 
-
-//ติดตั้ง pip install tensorflow ตอน activate env
-4. pip install tensorflow
-
-
-//วิธี run file
-5. python pose_detection.py
+<p float="left"> <img src="assets/yogaweb.png" width="45%" /> <img src="assets/yogaweb2.png" width="45%" /> </p> <p float="left"> <img src="assets/yogaweb3.png" width="45%" /> <img src="assets/yogaweb5.png" width="45%" /> </p> <p float="left"> <img src="assets/yogaweb6.png" width="45%" /> </p>
